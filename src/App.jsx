@@ -6,6 +6,8 @@ import Students from './pages/Students'
 import Results from './pages/Results'
 import AddStudent from './pages/AddStudent'
 
+
+
 export default function App(){
   return (
     <Routes>
@@ -15,6 +17,7 @@ export default function App(){
         <Route path="results" element={<Results />} />
         <Route path="add" element={<AddStudent />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+       
       </Route>
     </Routes>
   )
