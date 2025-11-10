@@ -1,0 +1,45 @@
+import express from "express";
+import mysql from "mysql2";
+import cors from "cors";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// ✅ MySQL connection
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "student_db",
+});
+
+// ✅ Check DB connection
+db.connect((err) => {
+  if (err) {
+    console.error("Database connection failed:", err);
+  } else {
+    console.log("Connected to MySQL database ✅");
+  }
+});
+
+// ✅ API Routes
+app.get("/students", (req, res) => {
+  db.query("SELECT * FROM students", (err, results) => {
+    if (err) return res.status(500).json(err);
+    res.json(results);
+  });
+});
+
+app.get("/results", (req, res) => {
+  db.query("SELECT * FROM results", (err, results) => {
+    if (err) return res.status(500).json(err);
+    res.json(results);
+  });
+});
+
+// ✅ Start server
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
